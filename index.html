@@ -1,1 +1,79 @@
-<h1>hello</h1>
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Бегущий текст — Сорока</title>
+  <style>
+    :root{
+      --speed: 12s; /* время одного пробега (чем меньше — тем быстрее) */
+      --font-size: clamp(20px, 4vw, 48px);
+    }
+
+    body{
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+      color: #fff;
+      font-family: "Inter", "Segoe UI", Roboto, Arial, sans-serif;
+    }
+
+    .marquee-wrapper{
+      width: 90%;
+      max-width: 1200px;
+      overflow: hidden;
+      border: 2px solid rgba(255,255,255,0.08);
+      padding: 14px 0;
+      background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius: 12px;
+      box-shadow: 0 6px 30px rgba(2,6,23,0.6);
+    }
+
+    .marquee {
+      display: inline-block;
+      white-space: nowrap;
+      will-change: transform;
+      font-weight: 700;
+      font-size: var(--font-size);
+      padding-left: 100%; /* старт за правой границей контейнера */
+      /* анимация — перемещение текста влево */
+      animation: marquee-anim var(--speed) linear infinite;
+    }
+
+    /* при наведении — останавливаем */
+    .marquee-wrapper:hover .marquee {
+      animation-play-state: paused;
+      cursor: pointer;
+    }
+
+    /* если хочется движение справа->влево — как сейчас.
+       Для обратного направления (влево->вправо) поменяйте ключевые кадры ниже. */
+    @keyframes marquee-anim {
+      0%   { transform: translateX(0%); }   /* текст начинается справа за пределами контейнера */
+      100% { transform: translateX(-100%); }/* уходит влево */
+    }
+
+    /* небольшой декоративный эффект для большей выразительности */
+    .marquee::before,
+    .marquee::after {
+      content: " ";
+      display: inline-block;
+      width: 1ch;
+      margin: 0 0.5ch;
+    }
+
+    /* мобильные оптимизации */
+    @media (prefers-reduced-motion: reduce) {
+      .marquee { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="marquee-wrapper" aria-label="Бегущий текст: Сорока - страха нет">
+    <div class="marquee">Сорока - страха нет</div>
+  </div>
+</body>
+</html>
