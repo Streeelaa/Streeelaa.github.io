@@ -3,77 +3,164 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Бегущий текст — Сорока</title>
+  <title>Цитаты про Сороку — бегущий текст</title>
   <style>
-    :root{
-      --speed: 12s; /* время одного пробега (чем меньше — тем быстрее) */
-      --font-size: clamp(20px, 4vw, 48px);
-    }
-
-    body{
-      margin: 0;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #0f172a;
-      color: #fff;
-      font-family: "Inter", "Segoe UI", Roboto, Arial, sans-serif;
-    }
-
-    .marquee-wrapper{
-      width: 90%;
-      max-width: 1200px;
-      overflow: hidden;
-      border: 2px solid rgba(255,255,255,0.08);
-      padding: 14px 0;
-      background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border-radius: 12px;
-      box-shadow: 0 6px 30px rgba(2,6,23,0.6);
-    }
-
-    .marquee {
-      display: inline-block;
-      white-space: nowrap;
-      will-change: transform;
-      font-weight: 700;
-      font-size: var(--font-size);
-      padding-left: 100%; /* старт за правой границей контейнера */
-      /* анимация — перемещение текста влево */
-      animation: marquee-anim var(--speed) linear infinite;
-    }
-
-    /* при наведении — останавливаем */
-    .marquee-wrapper:hover .marquee {
-      animation-play-state: paused;
-      cursor: pointer;
-    }
-
-    /* если хочется движение справа->влево — как сейчас.
-       Для обратного направления (влево->вправо) поменяйте ключевые кадры ниже. */
-    @keyframes marquee-anim {
-      0%   { transform: translateX(0%); }   /* текст начинается справа за пределами контейнера */
-      100% { transform: translateX(-100%); }/* уходит влево */
-    }
-
-    /* небольшой декоративный эффект для большей выразительности */
-    .marquee::before,
-    .marquee::after {
-      content: " ";
-      display: inline-block;
-      width: 1ch;
-      margin: 0 0.5ch;
-    }
-
-    /* мобильные оптимизации */
-    @media (prefers-reduced-motion: reduce) {
-      .marquee { animation: none; }
-    }
+    :root{ --speed: 12s; --font-size: clamp(18px, 4vw, 44px); }
+    body{ margin:0; min-height:100vh; display:flex; flex-direction:column; gap:18px; align-items:center; justify-content:flex-start; padding:28px; font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background:#0b1220; color:#e6eef8; }
+    header{ width:100%; max-width:1100px; display:flex; gap:12px; align-items:center; justify-content:space-between; }
+    h1{ font-size:20px; margin:0; }
+    .controls{ width:100%; max-width:1100px; display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+    select, button, input[type="range"], input[type="text"]{ padding:8px 10px; border-radius:8px; border:1px solid rgba(255,255,255,0.08); background:rgba(255,255,255,0.02); color:inherit; }
+    .marquee-wrapper{ width:100%; max-width:1100px; overflow:hidden; border-radius:12px; border:1px solid rgba(255,255,255,0.06); background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); padding:14px 8px; box-shadow:0 8px 30px rgba(2,6,23,0.6); }
+    .marquee{ display:inline-block; white-space:nowrap; font-weight:700; font-size:var(--font-size); padding-left:100%; will-change:transform; animation:marquee var(--speed) linear infinite; }
+    .marquee.paused{ animation-play-state:paused !important; }
+    @keyframes marquee{ 0%{ transform:translateX(0%); } 100%{ transform:translateX(-100%); } }
+    .controls-row{ display:flex; gap:8px; align-items:center; }
+    label{ font-size:13px; color:#cfe3ff; }
+    .small{ font-size:13px; color:#9fb7d9; }
+    .footer-note{ max-width:1100px; color:#9fb7d9; font-size:13px; }
+    @media (prefers-reduced-motion:reduce){ .marquee{ animation:none; } }
   </style>
 </head>
 <body>
-  <div class="marquee-wrapper" aria-label="Бегущий текст: Сорока - страха нет">
-    <div class="marquee">Сорока - страха нет</div>
+  <header>
+    <h1>Выберите цитату — текст станет бегущим</h1>
+    <div class="small">Наведите мышь на бегущий текст, чтобы остановить</div>
+  </header>
+
+  <div class="controls">
+    <div class="controls-row">
+      <label for="quoteSelect">Цитата:</label>
+      <select id="quoteSelect" aria-label="Выбор цитаты">
+        <option>Пивка для рывка, водочки для блатной походочки.</option>
+        <option>Без зубов базар лучше фильтруется</option>
+        <option>Базарят бабки на базаре мы по жизни речь толкуем!</option>
+        <option>Бздишь — товар коптишь, деньги портишь</option>
+        <option>В курятнике и задница - поющая канарейка</option>
+        <option>Хоть миллион вор пробухает, на друзей истратит и снова станет воровать</option>
+        <option>Розы гибнут на морозе юность гибнет в лагерях</option>
+        <option>Шагая весело по жизни, клопа дави и масть держи!</option>
+        <option>Хрен на блюде, а не люди</option>
+        <option>Бог не фраер- всё простит</option>
+        <option>В поле ветер, в жопе дым</option>
+        <option>Лучше маленький Ташкент, чем большая Колыма</option>
+        <option>На чей пенис муха сядет , тот и король</option>
+        <option>Победа или смерть Брату брат Миру мир  Убить ли быть убитым</option>
+        <option>Не мы такие жизнь такая</option>
+        <option>Со щитом или на щите</option>
+        <option>Быть воином - жить вечно</option>
+      </select>
+    </div>
+
+    <div class="controls-row">
+      <label for="speedRange">Скорость:</label>
+      <input id="speedRange" type="range" min="3" max="30" value="12" />
+      <span id="speedValue" class="small">12s</span>
+    </div>
+
+    <div class="controls-row">
+      <label for="directionToggle">Направление:</label>
+      <select id="directionToggle" aria-label="Направление анимации">
+        <option value="ltr">Слева → Справа</option>
+        <option value="rtl" selected>Справа → Слева</option>
+      </select>
+    </div>
+
+    <div class="controls-row">
+      <button id="playPause">Пауза</button>
+      <label for="customText">Свой текст:</label>
+      <input id="customText" type="text" placeholder="Вставьте свою цитату и нажмите Enter" />
+    </div>
   </div>
+
+  <div class="marquee-wrapper" id="marqueeWrapper">
+    <div class="marquee" id="marquee">Сорока - страха нет</div>
+  </div>
+
+  <div class="footer-note">Файл: <strong>soroka_marquee.html</strong> — откройте в браузере. Готово к использованию.</div>
+
+  <script>
+    const quoteSelect = document.getElementById('quoteSelect');
+    const marquee = document.getElementById('marquee');
+    const speedRange = document.getElementById('speedRange');
+    const speedValue = document.getElementById('speedValue');
+    const playPauseBtn = document.getElementById('playPause');
+    const directionToggle = document.getElementById('directionToggle');
+    const customText = document.getElementById('customText');
+
+    // Инициализация — поставим выбранную цитату из списка сразу
+    function setQuote(text){
+      // Устанавливаем текст и перезапускаем анимацию
+      marquee.textContent = text;
+      restartAnimation();
+    }
+
+    quoteSelect.addEventListener('change', e=> setQuote(e.target.value));
+
+    speedRange.addEventListener('input', e=>{
+      const val = e.target.value;
+      document.documentElement.style.setProperty('--speed', val + 's');
+      speedValue.textContent = val + 's';
+      // перезапуск чтобы анимация применились плавно
+      restartAnimation();
+    });
+
+    directionToggle.addEventListener('change', e=>{
+      const dir = e.target.value;
+      if(dir === 'rtl'){
+        marquee.style.paddingLeft = '100%';
+        marquee.style.animationDirection = 'normal';
+        marquee.style.transform = '';
+      } else {
+        // Левое направление: запускаем анимацию в обратную сторону
+        marquee.style.paddingLeft = '0%';
+        marquee.style.animationDirection = 'reverse';
+      }
+      restartAnimation();
+    });
+
+    playPauseBtn.addEventListener('click', ()=>{
+      const paused = marquee.classList.toggle('paused');
+      playPauseBtn.textContent = paused ? 'Играть' : 'Пауза';
+    });
+
+    customText.addEventListener('keydown', (e)=>{
+      if(e.key === 'Enter'){
+        const txt = customText.value.trim();
+        if(txt) {
+          // добавляем опцию в селект и выбираем её
+          const opt = document.createElement('option');
+          opt.textContent = txt;
+          opt.selected = true;
+          quoteSelect.appendChild(opt);
+          setQuote(txt);
+          customText.value = '';
+        }
+      }
+    });
+
+    // Перезапуск анимации: хитрость — убрать и вернуть класс/стиль
+    function restartAnimation(){
+      marquee.classList.remove('paused');
+      playPauseBtn.textContent = 'Пауза';
+      // перезапуск анимации через перерисовку
+      marquee.style.animation = 'none';
+      // принудительная перерисовка
+      // eslint-disable-next-line no-unused-expressions
+      marquee.offsetHeight;
+      marquee.style.animation = '';
+    }
+
+    // Останов при наведении (подсказка) — также можно оставить
+    const wrapper = document.getElementById('marqueeWrapper');
+    wrapper.addEventListener('mouseenter', ()=> marquee.classList.add('paused'));
+    wrapper.addEventListener('mouseleave', ()=> marquee.classList.remove('paused'));
+
+    // стартовое значение: поставим первую цитату из селекта
+    setQuote(quoteSelect.value);
+    // зададим начальную скорость
+    document.documentElement.style.setProperty('--speed', speedRange.value + 's');
+    speedValue.textContent = speedRange.value + 's';
+  </script>
 </body>
 </html>
