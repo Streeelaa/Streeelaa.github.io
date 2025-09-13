@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>Демо Казино — Слот</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: radial-gradient(circle at center, #1b2735, #090a0f);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    h1 { margin-bottom: 20px; }
+    .slot {
+      display: flex;
+      gap: 10px;
+      padding: 20px;
+      background: #222;
+      border: 5px solid gold;
+      border-radius: 12px;
+      box-shadow: 0 0 20px gold;
+    }
+    .reel {
+      font-size: 50px;
+      width: 80px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #111;
+      border: 2px solid #444;
+      border-radius: 8px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 18px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      background: gold;
+      color: black;
+      font-weight: bold;
+      transition: transform 0.2s;
+    }
+    button:hover {
+      transform: scale(1.1);
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 22px;
+      min-height: 30px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎰 Демо Казино</h1>
+  <div class="slot">
+    <div class="reel" id="reel1">❓</div>
+    <div class="reel" id="reel2">❓</div>
+    <div class="reel" id="reel3">❓</div>
+  </div>
+  <button id="spin">Крутить!</button>
+  <div id="result"></div>
+
+  <script>
+    const symbols = ["🍒", "🍋", "🔔", "⭐", "🍇", "7️⃣"];
+    const reels = [document.getElementById("reel1"), document.getElementById("reel2"), document.getElementById("reel3")];
+    const result = document.getElementById("result");
+    const button = document.getElementById("spin");
+
+    function spinReels() {
+      // случайный выбор символов
+      const chosen = reels.map(r => symbols[Math.floor(Math.random() * symbols.length)]);
+      reels.forEach((r, i) => r.textContent = chosen[i]);
+
+      // проверка на выигрыш
+      if (chosen[0] === chosen[1] && chosen[1] === chosen[2]) {
+        result.textContent = "🎉 Джекпот! Все три совпали!";
+      } else if (chosen[0] === chosen[1] || chosen[1] === chosen[2] || chosen[0] === chosen[2]) {
+        result.textContent = "👌 Есть пара!";
+      } else {
+        result.textContent = "😢 Повезёт в следующий раз!";
+      }
+    }
+
+    button.addEventListener("click", spinReels);
+  </script>
+</body>
+</html>
